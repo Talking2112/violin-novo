@@ -9,8 +9,7 @@ body {
 header {
     background-color: #801d36;
     color: white;
-    padding: 15px 15
-px; /* Ajuste a margem conforme necessário */
+    padding: 15px 15px; /* Ajuste a margem conforme necessário */
     display: flex;
     justify-content: center;
     align-items: center;
