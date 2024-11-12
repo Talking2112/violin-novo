@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+}
+body {
+    background-color: #3b3b3b;
+}
+.navbar { 
+    background-color: #801d36; 
+    overflow: hidden; 
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    padding: 1px;
+} 
+.navbar a { 
+    float: left; 
+    display: block; 
+    color: white; 
+    text-align: center; 
+    padding: 20px 30px; 
+    text-decoration: none; 
+    font-size: 25px;
+} 
+.search-container { 
+    float: right; 
+    padding: 14px 16px; 
+} 
+.search-container input[type=text] { 
+    padding: 6px; 
+    margin-top: 8px; 
+    font-size: 17px; 
+    border: none; 
+} 
+.search-container button { 
+    padding: 6px 10px; 
+    margin-top: 8px; 
+    margin-right: 16px; 
+    background: #ddd; 
+    font-size: 17px; 
+    border: none; 
+    cursor: pointer; 
+} 
+.content { 
+    padding: 60px
+}
