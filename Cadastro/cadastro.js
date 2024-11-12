@@ -43,11 +43,9 @@ function cadastrarUsuario() {
     //salvar na localSotrage
     localStorage.setItem('usuarios', JSON.stringify(usuarios))
     
-    setTimeout(() => {
-        window.location.href = 'home.html'
-    }, 4000)
 
-    function voltar(){
-        window.location.href = 'home.html'
-    }
 } 
+
+const botao = document.getElementById('Enviar_u')
+
+botao.addEventListener('click', validacao)
