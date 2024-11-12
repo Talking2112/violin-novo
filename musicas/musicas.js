@@ -1,39 +1,85 @@
+const formCadastroMusica = document.getElementById('form_cadastro_musica');
+const listaMusicaElement = document.getElementById('lista_m');
 
-function cadastrarMusica() {
-        //chamando os id em variavei
-    let titulo = document.getElementById('titulo_m').value
-    let artista = document.getElementById('artista_m').value
-    let genero = document.getElementById('genero_m').value
-    let duracao = document.getElementById('duracao_m').value
-    let link = document.getElementById('link_m').value
+// Pega a lista de músicas do LocalStorage
+let listaMusica = JSON.parse(localStorage.getItem('musicas') || "[]");
 
-    //pegando dados dos usuarios na localstorage ou criando lista vazia caso nao tenha dados armazenados
-    let listaMuscia = JSON.parse(localStorage.getItem('usuario')) || []
+// Display de músicas
+listaMusica.forEach(musica => {
+    criarElemento(musica);
+});
 
-    //validando confirmar email e confirmar senha
+// Event listener de quando o cadastro é concluído
+formCadastroMusica.addEventListener('submit', function(event) {
+    event.preventDefault();
 
+    // Coleta informação do cadastro
+    const novaMusica = {
+        titulo: document.getElementById('titulo_m').value,
+        artista: document.getElementById('artista_m').value,
+        genero: document.getElementById('genero_m').value,
+        duracao: document.getElementById('duracao_m').value,
+        link: document.getElementById('link_m').value
+    };
 
-    //verificando se o email ja foi usado para algum cadastro
-    let musicaExistente = listaMuscia.find(listaMuscia => usuario.titulo === titulo)
-    if(musicaExistente){
-        document.getElementById('mensagem').innerText = 'Musica ja cadastrada'
-        return
-    }
+    // Adiciona música
+    listaMusica.push(novaMusica);
 
-    //criando um objeto usuario para colocar na lista de usuarios
-    let novoUsuario = {
-        id: Date.now(),
-        nome: name,
-        email: email,
-        senha: btoa(password),  //salvando a senha com criptografia 
-        
-    }
+    // Salva lista no LocalStorage
+    localStorage.setItem('musicas', JSON.stringify(listaMusica));
 
-    //colocar o objeto novoUsuario no fim da lista de usuarios
-    usuarios.push(novoUsuario)
+    // Cria lista e mostra na UI
+    criarElemento(novaMusica);
 
-    //salvar na localSotrage
-    localStorage.setItem('usuarios', JSON.stringify(usuarios))
+    // Reseta o cadastro
+    formCadastroMusica.reset();
+});
+
+// Cria lista para a música e bota no DOM
+function criarElemento(musica) {
+    const elementoMusica = document.createElement('li');
+    elementoMusica.className = 'item_musica';
+
+    // Título da música
+    const tituloMusica = document.createElement('p');
+    tituloMusica.textContent = musica.titulo;
+
+    const artistaMusica = document.createElement('p');
+    artistaMusica.textContent = musica.artista;
+
+    const generoMusica = document.createElement('p');
+    generoMusica.textContent = musica.genero;
+
+    const duracaoMusica = document.createElement('p');
+    duracaoMusica.textContent = musica.duracao;
+
+    const linkMusica = document.createElement('p');
+    linkMusica.textContent = musica.link;
+
+    // Botão de deletar música
+    const botaoDeletar = document.createElement('button');
+    botaoDeletar.textContent = "Deletar música";
     
+    // Adiciona event listener e remove música
+    botaoDeletar.addEventListener('click', function() {
+        // Remove da UI
+        elementoMusica.remove();
+
+        // Remove da lista e bota no localstorage
+        listaMusica = listaMusica.filter(m => m !== musica);
+        localStorage.setItem('musicas', JSON.stringify(listaMusica));
+    });
+
+    // Dá o título e o botão no "Músicas Cadastradas"
+    elementoMusica.appendChild(tituloMusica);
+    elementoMusica.appendChild(artistaMusica);
+    elementoMusica.appendChild(generoMusica);
+    elementoMusica.appendChild(duracaoMusica);
+    elementoMusica.appendChild(linkMusica);
+    elementoMusica.appendChild(botaoDeletar);
+
+    // Append the list item to the unordered list
+    listaMusicaElement.appendChild(elementoMusica);
+}
+
     
-} 
