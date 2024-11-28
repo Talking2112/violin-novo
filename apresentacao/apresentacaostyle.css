@@ -63,3 +63,7 @@ body {
     right: 200px;
     bottom: 200px;
 }
+a {
+    text-decoration: none;
+    color: inherit;
+}

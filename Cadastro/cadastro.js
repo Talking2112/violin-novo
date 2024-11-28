@@ -1,51 +1,51 @@
-//lembre de colocar as opções 'confirmar senha' e 'confirmar gmail' no cadastro junto com um ID para cada
-
 function cadastrarUsuario() {
-        //chamando os id em variavei
-    let name = document.getElementById('name').value
-    let email = document.getElementById('email').value
-    let confirmEmail = document.getElementById('confirm-email').value
-    let password = document.getElementById('password').value
-    let confirmPassword = document.getElementById('confirmPassword').value
+    // Chamando os IDs em variáveis
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let confirmEmail = document.getElementById('confirm-email').value;  // Adicionado confirm-email
+    let password = document.getElementById('password').value;
+    let confirmPassword = document.getElementById('confirm-password').value;  // Corrigido ID do campo
 
-    //pegando dados dos usuarios na localstorage ou criando lista vazia caso nao tenha dados armazenados
-    let usuarios = JSON.parse(localStorage.getItem('usuario')) || []
+    // Pegando dados dos usuários na localStorage ou criando lista vazia caso não tenha dados armazenados
+    let usuarios = JSON.parse(localStorage.getItem('usuario')) || [];
 
-    //validando confirmar email e confirmar senha
-    if(email !== confirmEmail){
-        document.getElementById('mensagem').innerText = 'Emails estao diferentes'
-        return
+    // Validando confirmar e-mail e confirmar senha
+    if (email !== confirmEmail) {
+        document.getElementById('mensagem').innerText = 'Emails estão diferentes';
+        return;
     }
-    if(password !== confirmPassword){
-        document.getElementById('mensagem').innerText = 'senhas estao diferentes'
-        return
-    }
-
-    //verificando se o email ja foi usado para algum cadastro
-    let usuarioExistente = usuarios.find(usuario => usuario.email === emailmail)
-    if(usuarioExistente){
-        document.getElementById('mensagem').innerText = 'email ja cadastrado'
-        return
+    if (password !== confirmPassword) {
+        document.getElementById('mensagem').innerText = 'Senhas estão diferentes';
+        return;
     }
 
-    //criando um objeto usuario para colocar na lista de usuarios
+    // Verificando se o email já foi usado para algum cadastro
+    let usuarioExistente = usuarios.find(usuario => usuario.email === email);
+    if (usuarioExistente) {
+        document.getElementById('mensagem').innerText = 'E-mail já cadastrado';
+        return;
+    }
+
+    // Criando um objeto usuário para colocar na lista de usuários
     let novoUsuario = {
         id: Date.now(),
         nome: name,
         email: email,
-        senha: btoa(password),  //salvando a senha com criptografia 
+        senha: btoa(password),  // Importante: Use uma abordagem de segurança mais robusta para senhas
         playlists: []
-    }
+    };
 
-    //colocar o objeto novoUsuario no fim da lista de usuarios
-    usuarios.push(novoUsuario)
+    // Colocando o objeto novoUsuario no fim da lista de usuários
+    usuarios.push(novoUsuario);
 
-    //salvar na localSotrage
-    localStorage.setItem('usuarios', JSON.stringify(usuarios))
-    
+    // Salvando na localStorage
+    localStorage.setItem('usuario', JSON.stringify(usuarios));  // Corrigido nome do item
 
-} 
+    // Exibindo mensagem de sucesso
+    document.getElementById('mensagem').innerText = 'Cadastro realizado com sucesso!';
 
-const botao = document.getElementById('Enviar_u')
-
-botao.addEventListener('click', validacao)
+    // Redirecionando para a página de login
+    setTimeout(() => {
+        window.location.href = '/login/login.html';  // Redireciona após 2 segundos
+    }, 2000); // O tempo de 2 segundos (2000ms) é para dar tempo do usuário ver a mensagem de sucesso
+}

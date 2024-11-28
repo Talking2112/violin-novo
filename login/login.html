@@ -10,12 +10,14 @@
     <div class="login-container">
         <h2>Login</h2>
         <form id="login-form" onsubmit="return login();">
-            <input type="text" id="login-email" name="username" placeholder="Usuário" required>
+            <input type="email" id="login-email" name="username" placeholder="E-mail" required>
             <input type="password" id="login-password" name="password" placeholder="Senha" required>
             <button type="submit">Entrar</button>
         </form>
         <div class="mensagem" id="mensagem"></div>
         <a href="/Cadastro/cadastro.html">Não tem uma conta? Cadastre-se</a>
     </div>
+
+    <script src="login.js"></script>
 </body>
 </html>

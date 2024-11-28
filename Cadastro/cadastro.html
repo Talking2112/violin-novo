@@ -1,30 +1,27 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link rel="stylesheet" href="cadastrostyle.css">
-    <div class="container">
-        <h2>Cadastro</h2>
-        <form action="#" method="POST">
-            <div class="form-group">
-                <label for="name">Nome:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm-password">Confirmação de Senha:</label>
-                <input type="password" id="confirm-password" name="confirm-password" required>
-            </div>
-           <button id="Enviar_u">Enviar</button>
+</head>
+<body>
+    <div id="login-container">
+        <form id="login-form" onsubmit="return cadastrarUsuario();">
+            <h2>Cadastro</h2>
+            <input type="text" id="name" name="name" placeholder="Nome de Usuario" required>
+            <input type="email" id="email" name="email" placeholder="E-mail" required>
+            <input type="email" id="confirm-email" name="confirm-email" placeholder="Confirmar E-mail" required>
+            <input type="password" id="password" name="password" placeholder="Senha" required>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmar Senha" required>
+            <div id="mensagem" style="color:red;"></div> <!-- Área para mostrar mensagens de erro -->
+            <button type="button" id="Enviar_u" onclick="cadastrarUsuario()">Enviar</button>
         </form>
+        <!-- Link para página de login -->
+        <a href="/login/login.html">Já tem uma conta? Clique aqui para fazer login</a>
     </div>
+    
+    <script src="cadastro.js"></script>
 </body>
 </html>
