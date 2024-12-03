@@ -1,99 +1,92 @@
-const formCadastroMusica = document.getElementById('form_cadastro_musica');
-const listaMusicaElement = document.getElementById('lista_m');
+// Elementos do DOM
+const formCriarPlaylist = document.getElementById('form_criar_playlist');
+const listaPlaylistsElement = document.getElementById('lista_playlists');
 
-// Pega a lista de músicas do LocalStorage
-let listaMusica = JSON.parse(localStorage.getItem('musicas') || "[]");
+// Recupera as playlists do LocalStorage
+let playlists = JSON.parse(localStorage.getItem('playlists')) || [];
 
-// Display de músicas
-listaMusica.forEach(musica => {
-    criarElemento(musica);
+// Exibe as playlists salvas no carregamento da página
+playlists.forEach(playlist => {
+    criarElementoPlaylist(playlist);
 });
 
-// Event listener de quando o cadastro é concluído
-formCadastroMusica.addEventListener('submit', function(event) {
+// Evento para criar uma nova playlist
+formCriarPlaylist.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    // Coleta informações do cadastro
-    const arquivo = document.getElementById('arquivo_m').files[0];
-    if (!arquivo) {
-        alert('Por favor, selecione um arquivo MP3 64k.');
+    const nomePlaylist = document.getElementById('nome_playlist').value.trim();
+
+    if (!nomePlaylist) {
+        alert('O nome da playlist não pode estar vazio.');
         return;
     }
 
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-        // Cria um novo objeto musica com o arquivo convertido para base64
-        const novaMusica = {
-            titulo: document.getElementById('titulo_m').value,
-            artista: document.getElementById('artista_m').value,
-            genero: document.getElementById('genero_m').value,
-            duracao: document.getElementById('duracao_m').value,
-            mp3: e.target.result // Armazena o arquivo em base64
-        };
-
-        // Adiciona a nova música à lista
-        listaMusica.push(novaMusica);
-
-        // Salva a lista no LocalStorage
-        localStorage.setItem('musicas', JSON.stringify(listaMusica));
-
-        // Cria a lista e mostra na UI
-        criarElemento(novaMusica);
-
-        // Reseta o formulário
-        formCadastroMusica.reset();
+    const novaPlaylist = {
+        id: Date.now(), // ID único baseado no timestamp
+        nome: nomePlaylist,
+        musicas: [] // Inicialmente, a playlist não tem músicas
     };
 
-    // Se um arquivo foi selecionado, ele é lido
-    reader.readAsDataURL(arquivo);
+    playlists.push(novaPlaylist);
+    localStorage.setItem('playlists', JSON.stringify(playlists));
+
+    criarElementoPlaylist(novaPlaylist);
+
+    // Limpa o formulário
+    formCriarPlaylist.reset();
 });
 
-// Função para criar o elemento da música
-function criarElemento(musica) {
-    const elementoMusica = document.createElement('li');
-    elementoMusica.className = 'item_musica';
+// Função para criar o elemento de uma playlist
+function criarElementoPlaylist(playlist) {
+    const elementoPlaylist = document.createElement('li');
+    elementoPlaylist.className = 'item_playlist';
 
-    // Título da música
-    const tituloMusica = document.createElement('p');
-    tituloMusica.textContent = musica.titulo;
+    const tituloPlaylist = document.createElement('p');
+    tituloPlaylist.textContent = playlist.nome;
 
-    const artistaMusica = document.createElement('p');
-    artistaMusica.textContent = musica.artista;
-
-    const generoMusica = document.createElement('p');
-    generoMusica.textContent = musica.genero;
-
-    const duracaoMusica = document.createElement('p');
-    duracaoMusica.textContent = musica.duracao;
-
-    // Adiciona o player de áudio
-    const audioPlayer = document.createElement('audio');
-    audioPlayer.controls = true;
-    audioPlayer.src = musica.mp3;
-
-    // Botão de deletar música
-    const botaoDeletar = document.createElement('button');
-    botaoDeletar.textContent = "Deletar música";
-    
-    // Adiciona event listener e remove música
-    botaoDeletar.addEventListener('click', function() {
-        // Remove da UI
-        elementoMusica.remove();
-
-        // Remove da lista e bota no localstorage
-        listaMusica = listaMusica.filter(m => m !== musica);
-        localStorage.setItem('musicas', JSON.stringify(listaMusica));
+    const listaMusicasPlaylist = document.createElement('ul');
+    listaMusicasPlaylist.className = 'musicas_playlist';
+    playlist.musicas.forEach(musica => {
+        const musicaItem = document.createElement('li');
+        musicaItem.textContent = musica.titulo;
+        listaMusicasPlaylist.appendChild(musicaItem);
     });
 
-    // Dá o título, o player de áudio e o botão na lista
-    elementoMusica.appendChild(tituloMusica);
-    elementoMusica.appendChild(artistaMusica);
-    elementoMusica.appendChild(generoMusica);
-    elementoMusica.appendChild(duracaoMusica);
-    elementoMusica.appendChild(audioPlayer);
-    elementoMusica.appendChild(botaoDeletar);
+    // Botão para adicionar músicas à playlist
+    const botaoAdicionarMusica = document.createElement('button');
+    botaoAdicionarMusica.textContent = 'Adicionar Música';
+    botaoAdicionarMusica.addEventListener('click', function () {
+        adicionarMusicaNaPlaylist(playlist.id);
+    });
 
-    // Adiciona o item à lista no DOM
-    listaMusicaElement.appendChild(elementoMusica);
+    elementoPlaylist.appendChild(tituloPlaylist);
+    elementoPlaylist.appendChild(listaMusicasPlaylist);
+    elementoPlaylist.appendChild(botaoAdicionarMusica);
+
+    listaPlaylistsElement.appendChild(elementoPlaylist);
+}
+
+// Função para adicionar músicas à playlist
+function adicionarMusicaNaPlaylist(playlistId) {
+    const playlist = playlists.find(p => p.id === playlistId);
+    const musicaSelecionada = prompt(
+        `Escolha uma música para adicionar à playlist "${playlist.nome}":\n` +
+        listaMusica.map((musica, index) => `${index + 1}. ${musica.titulo}`).join('\n')
+    );
+
+    const musicaIndex = parseInt(musicaSelecionada) - 1;
+
+    if (musicaIndex >= 0 && musicaIndex < listaMusica.length) {
+        playlist.musicas.push(listaMusica[musicaIndex]);
+        localStorage.setItem('playlists', JSON.stringify(playlists));
+        atualizarPlaylistsUI();
+    } else {
+        alert('Seleção inválida. Tente novamente.');
+    }
+}
+
+// Atualiza a UI de playlists
+function atualizarPlaylistsUI() {
+    listaPlaylistsElement.innerHTML = '';
+    playlists.forEach(playlist => criarElementoPlaylist(playlist));
 }

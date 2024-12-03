@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="navbar"> 
-        <a href="#home">Violin</a> 
+        <a href="/Home/homeajust.html">Violin</a> 
         <a href="#contato">Minha Área</a> 
     </div>
 
@@ -16,6 +16,22 @@
         <h2>Perfil do Usuário</h2>
         <p id="user-info"></p>
     </div>
+
+    <div class="container">
+        <h2>Criar Playlist</h2>
+        <form id="form_criar_playlist">
+            <div class="form-group">
+                <input type="text" id="nome_playlist" placeholder="Nome da Playlist" required>
+            </div>
+            <button type="submit" id="criar_playlist_btn">Criar Playlist</button>
+        </form>
+    </div>
+    
+    <div class="container">
+        <h2>Playlists Criadas</h2>
+        <ul id="lista_playlists"></ul>
+    </div>
+    
 
     <script src="/Perfil/perfil.js"></script>
 </body>

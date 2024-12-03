@@ -1,11 +1,12 @@
-// Verifica se o usuário está logado
 document.addEventListener('DOMContentLoaded', function () {
     const perfilContainer = document.getElementById('perfil-container');
 
-    const usuarios = JSON.parse(localStorage.getItem('usuario')) || [];
+    // Recupera o ID do usuário logado
     const usuarioLogado = localStorage.getItem('usuarioLogado');
+    const usuarios = JSON.parse(localStorage.getItem('usuario')) || [];
 
     if (usuarioLogado) {
+        // Encontra o usuário logado
         const usuario = usuarios.find(user => user.id === parseInt(usuarioLogado));
 
         if (usuario) {
@@ -15,10 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 <strong>E-mail:</strong> ${usuario.email}
             `;
         } else {
-            perfilContainer.innerHTML = '<p>Usuário não encontrado.</p>';
+            // Caso o usuário não seja encontrado, limpa o estado de login e redireciona
+            localStorage.removeItem('usuarioLogado');
+            window.location.href = '/login/login.html';
         }
     } else {
-        // Redireciona se não estiver logado
-        window.location.href = '/login.html';
+        // Se o estado de login não existir, redireciona para a página de login
+        window.location.href = '/login/login.html';
     }
 });
