@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+}
+body {
+    background-color: rgb(36, 36, 36);
+    margin-left:  180;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+.navbar { 
+    background-color: #801d36; 
+    overflow: hidden; 
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    padding: 1px;
+} 
+.navbar a { 
+    float: left; 
+    display: block; 
+    color: white; 
+    text-align: center; 
+    padding: 30px 60px; 
+    text-decoration: none; 
+    font-size: 30px;
+} 
+.search-container { 
+    float: right; 
+    padding: 14px 16px; 
+} 
+.search-container input[type=text] { 
+    padding: 6px; 
+    margin-top: 8px; 
+    font-size: 17px; 
+    border: none; 
+} 
+.search-container button { 
+    padding: 6px 10px; 
+    margin-top: 8px; 
+    margin-right: 16px; 
+    background: #ddd; 
+    font-size: 17px; 
+    border: none; 
+    cursor: pointer; 
+} 
+.content { 
+    padding: 60px;
+    margin-top: 50px;
+}
+
+
+.container {
+    background: rgba(255, 255, 255, 0.966);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    margin-left: 100px;
+    margin-right: 100px;
+    
+    }
+    
+    
+    h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    }
+    
+    .form-group {
+    margin-bottom: 20px;
+    }
+    
+    
+    
+    input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    }
+    input[type="text"]:focus {
+    border-color: #b61e51;;
+    outline: none;
+    }
+    
+    button[type="submit"] {
+    background-color: #b61e51;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    }
+    
+    button[type="submit"]:hover {
+    background-color: #b61e51;;
+    }
+    
+    button[type="submit"] {
+        padding: 10px;
+        font-size: 14px;
+        }
+    
+    @media (max-width: 480px) {
+    .container {
+    padding: 20px;
+    }
+    
+    
+    
+    }
