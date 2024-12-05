@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Perfil/perfil.css">
+    <title>Perfil</title>
+</head>
+<body>
+    <div class="navbar"> 
+        <a href="#home">Violin</a> 
+        <a href="/home/homeajust.html">Cadastrar Música</a> 
+        <a href="/Perfil/perfil.html">Perfil</a> 
+        <div class="search-container"> 
+            <form action="/action_page.php"> 
+            </form> 
+        </div> 
+    </div>   
+
+    <div class="container" id="perfil-container">
+        <h2>Perfil do Usuário</h2>
+        <p id="user-info"></p>
+    </div>
+
+    <div class="container">
+        <h2>Criar Playlist</h2>
+        <form id="form_criar_playlist">
+            <div class="form-group">
+                <input type="text" id="nome_playlist" placeholder="Nome da Playlist" required>
+            </div>
+            <button type="submit" id="criar_playlist_btn">Criar Playlist</button>
+        </form>
+    </div>
+    
+    <div class="container">
+        <h2>Playlists Criadas</h2>
+        <ul id="lista_playlists"></ul>
+    </div>
+    
+
+    <script src="/Perfil/perfil.js"></script>
+</body>
+</html>

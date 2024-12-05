@@ -13,8 +13,11 @@ function login(event) {
     let usuario = usuarios.find(usuario => usuario.email === email && usuario.senha === btoa(password)); // btoa para comparar com a senha armazenada
 
     if (usuario) {
-        // Se o usuário for encontrado, redireciona para a página homeajust.html
-        window.location.href = '/Home/homeajust.html';
+        // Armazena o ID do usuário logado
+        localStorage.setItem('usuarioLogado', usuario.id);
+
+        // Redireciona para a página inicial
+        window.location.href = '/Perfil/perfil.html';
     } else {
         // Se o login falhar, exibe uma mensagem de erro
         document.getElementById('mensagem').innerText = 'E-mail ou senha incorretos.';
